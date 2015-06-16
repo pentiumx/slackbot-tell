@@ -72,7 +72,7 @@ setInterval(function() {
   });
 }, 60e3).unref();
 
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/", function(req, res, next) {
   // TODO validate token (as a filter)
@@ -132,6 +132,7 @@ app.post("/", function(req, res, next) {
                                      who,
                                      body,
                                      moment(score).zone(TZ_OFFSET).calendar()));
+
   });
 });
 
