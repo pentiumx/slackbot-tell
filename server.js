@@ -10,8 +10,13 @@ var bodyParser = require("body-parser"),
     request = require("request"),
     tz = require("moment-timezone");
 
-var app = express(),
-    client = require("redis-url").connect();
+var app = express();
+//client = require("redis-url").connect();
+var redis = require('redis');
+var url = require('url');
+var redisURL = url.parse(process.env.REDISCLOUD_URL);
+var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
+client.auth(redisURL.auth.split(":")[1]);
 
 var REDIS_KEY = "reminders",
     SLACK_TOKEN = env.require("SLACK_TOKEN"),
